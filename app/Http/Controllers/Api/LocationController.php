@@ -10,10 +10,32 @@ use App\Models\Kecamatan;
 class LocationController extends Controller
 {
     public function kotakab(){
-        return KotaKabupaten::where('province_id', 32)->get();
+        try {
+            $results = KotaKabupaten::where('province_id', 32)->get();
+            return response()->json([
+                'status' => '1',
+                'data' => $results
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     public function kecamatan($kotakab_id){
-        return Kecamatan::where('regency_id', 3272)->get();
+        try {
+            $results = Kecamatan::where('regency_id', $kotakab_id)->get();
+            return response()->json([
+                'status' => '1',
+                'data' => $results
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }

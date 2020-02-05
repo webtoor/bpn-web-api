@@ -20,5 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/register', 'Api\AuthController@register');
 Route::get('/kota-kabupaten', 'Api\LocationController@kotakab');
-Route::get('/kota-kabupaten/{kotakab_id}', 'Api\LocationController@kecamatan');
+Route::get('/kecamatan/{kotakab_id}', 'Api\LocationController@kecamatan');
 
