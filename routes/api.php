@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/* Route::middleware('auth:api')->get('/user', function (Request $request) {
     return 'test';
 });
-
+ */
 
 Route::post('/register', 'Api\AuthController@register');
 Route::get('/kota-kabupaten', 'Api\LocationController@GetKotaKab');

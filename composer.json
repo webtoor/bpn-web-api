@@ -11,6 +11,7 @@
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
         "jeroennoten/laravel-adminlte": "^3.0",
+        "barryvdh/laravel-cors": "^0.11.4",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.3",
         "laravel/tinker": "^2.0",

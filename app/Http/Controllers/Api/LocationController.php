@@ -42,7 +42,7 @@ class LocationController extends Controller
 
     public function GetDesa($kecamatan_id){
         try {
-            $results = Desa::where('district_d', $kecamatan_id)->get();
+            $results = Desa::where('district_id', $kecamatan_id)->get();
             return response()->json([
                 'status' => '1',
                 'data' => $results
