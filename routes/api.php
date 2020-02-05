@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
  */
 
 Route::post('/register', 'Api\AuthController@register');
+Route::post('/login', 'Api\AuthController@login');
 Route::get('/kota-kabupaten', 'Api\LocationController@GetKotaKab');
 Route::get('/kecamatan/{kotakab_id}', 'Api\LocationController@GetKecamatan');
 Route::get('/desa/{kecamatan_id}', 'Api\LocationController@GetDesa');
