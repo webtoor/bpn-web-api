@@ -34,7 +34,7 @@ class AuthController extends Controller
 
     public function register(Request $request){
         
-       $validatedData = $request->validate([
+       $validatedData = $this->validate($request,[
             'pelaksana' => 'required',
             'kotakab' => 'required',
             'kecamatan' => 'required',
@@ -51,6 +51,7 @@ class AuthController extends Controller
                 'pelaksana' => $validatedData['pelaksana'],
                 'email' => $validatedData['email'],
                 'password' => Hash::make($validatedData['password']),
+                'status' => "0"
             ]);
 
             UserRole::create([

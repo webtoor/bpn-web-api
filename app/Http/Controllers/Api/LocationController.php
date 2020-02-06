@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\KotaKabupaten;
 use App\Models\Kecamatan;
 use App\Models\Desa;
+use App\Models\ProjectLocation;
 
 class LocationController extends Controller
 {
@@ -53,5 +55,10 @@ class LocationController extends Controller
                 'error' => $e->getMessage()
             ]);
         }
+    }
+
+    public function GetLocation(){
+        $accessToken = Auth::user()->token();
+        return ProjectLocation::where(['user_id' => $accessToken->user_id])->get();
     }
 }

@@ -24,3 +24,7 @@ Route::get('/kota-kabupaten', 'Api\LocationController@GetKotaKab');
 Route::get('/kecamatan/{kotakab_id}', 'Api\LocationController@GetKecamatan');
 Route::get('/desa/{kecamatan_id}', 'Api\LocationController@GetDesa');
 
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/get-location', 'Api\LocationController@GetLocation');
+});
