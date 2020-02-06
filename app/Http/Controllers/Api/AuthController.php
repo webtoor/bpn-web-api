@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\ProjectLocation;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Route;
 
 class AuthController extends Controller
 {
