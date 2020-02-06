@@ -16,4 +16,16 @@ class ProjectLocation extends Model
         'target'
     ];
     public $timestamps = true;
+
+    public function kotakab(){
+        return $this->belongsTo('App\Models\KotaKabupaten');
+    }
+
+    public function kecamatan(){
+        return $this->belongsTo('App\Models\Kecamatan');
+    }
+
+    public function desa(){
+        return $this->belongsTo('App\Models\Desa');
+    }
 }

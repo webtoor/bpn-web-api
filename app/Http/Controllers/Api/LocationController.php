@@ -59,6 +59,17 @@ class LocationController extends Controller
 
     public function GetLocation(){
         $accessToken = Auth::user()->token();
-        return ProjectLocation::where(['user_id' => $accessToken->user_id])->get();
+        try {
+            $results = ProjectLocation::with('kotakab', 'kecamatan', 'desa')->where(['user_id' => $accessToken->user_id])->get();
+            return response()->json([
+                'status' => '1',
+                'data' => $results
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }
