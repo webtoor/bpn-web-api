@@ -25,4 +25,8 @@ class ReportHarian extends Model
         'updated_at'
     ];
     public $timestamps = true;
+
+    public function project_location(){
+        return $this->belongsTo('App\Models\ProjectLocation');
+    }
 }

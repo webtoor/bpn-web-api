@@ -64,7 +64,9 @@ class ReportController extends Controller
         $accessToken = Auth::user()->token();
 
         try {
-            $results = ReportHarian::where('user_id', $accessToken->user_id)->orderBy('id', 'desc')->get();
+            $results = ReportHarian::with(['project_location' => function ($query) {
+                $query->with('kotakab', 'kecamatan', 'desa');
+            }])->where('user_id', $accessToken->user_id)->orderBy('id', 'desc')->get();
             return response()->json([
                 'status' => '1',
                 'data' => $results
