@@ -113,7 +113,7 @@ class AuthController extends Controller
             return response()->json([
                 "status" => "0",
                 "error" => "invalid_credentials",
-                "message" => "The user credentials were incorrect"
+                "message" => "Anda memasukkan Email dan Password yang salah. Isi dengan data yang benar dan coba lagi"
                ]);
             }
         }else{
@@ -121,7 +121,7 @@ class AuthController extends Controller
             return response()->json([
                 "status" => "0",
                 "error" => "invalid_credentials",
-                "message" => "The user credentials were incorrect"
+                "message" => "Email tidak terdaftar"
                ]);
         }
     }

@@ -11,10 +11,9 @@ use App\Models\ReportHarian;
 
 class ReportController extends Controller
 {
-    public function PostReport(Request $request){
-          
-       $validatedData = $this->validate($request,[
-        'tanggal_pelaporan' => 'required',
+    public function PostReport(Request $request)
+    {
+        $validatedData = $this->validate($request, [
         'lokasi' => 'required',
         'terukur' => 'required',
         'tergambar' => 'required',
@@ -28,7 +27,7 @@ class ReportController extends Controller
         'keterangan' => 'nullable',
         'dtreport' => 'required'
         ]);
-        
+
         $accessToken = Auth::user()->token();
 
         try {
@@ -52,7 +51,24 @@ class ReportController extends Controller
                 'status' => '1',
                 'message' => 'success'
             ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
 
+    public function GetReport()
+    {
+        $accessToken = Auth::user()->token();
+
+        try {
+            $results = ReportHarian::where('user_id', $accessToken->user_id)->orderBy('id', 'desc')->get();
+            return response()->json([
+                'status' => '1',
+                'data' => $results
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => '0',

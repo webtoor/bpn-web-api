@@ -27,6 +27,8 @@ class CreateReportHarianTable extends Migration
             $table->integer('pengumuman');
             $table->integer('pengesahan');
             $table->string('keterangan');
+            $table->date('dtreport');
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
