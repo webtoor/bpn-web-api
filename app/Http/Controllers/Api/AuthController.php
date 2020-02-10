@@ -89,40 +89,48 @@ class AuthController extends Controller
         ]);
 
         $resultUser = User::where('email', $validatedData['email'])->first();
-        if($resultUser) {
+        if($resultUser) {  
             if (Hash::check($validatedData['password'], $resultUser->password)) {
-                $user_role = $resultUser->role->role_id;
-                $request->request->add([
-                        "grant_type" => "password",
-                        "client_id" => "1",
-                        "client_secret" => "dK0dG45AMwufVABi2yUygEWKG0ODSQasvRfrred0",
-                        "username"  => $request->json('email'),
-                        "password"  => $request->json('password'),
-                        "scope"     => "*"
+                if ($resultUser->status == '1') {
+                    $user_role = $resultUser->role->role_id;
+                    $request->request->add([
+                            "grant_type" => "password",
+                            "client_id" => "1",
+                            "client_secret" => "dK0dG45AMwufVABi2yUygEWKG0ODSQasvRfrred0",
+                            "username"  => $request->json('email'),
+                            "password"  => $request->json('password'),
+                            "scope"     => "*"
+                        ]);
+                        $proxy = $request->create('/oauth/token', 'POST');
+                        $response = Route::dispatch($proxy);
+    
+                        $json = (array) json_decode($response->getContent());
+                        $json['user_id'] = $resultUser->id;
+                        $json['email'] = $resultUser->email;
+                        return $response->setContent(json_encode($json));
+                }else{
+                    //Status Belum Aktif
+                    return response()->json([
+                        "status" => "0",
+                        "error" => "invalid_credentials",
+                        "message" => "Akun Anda Belum diverifikasi, Silakan Tunggu 1x24 jam"
                     ]);
-                    $proxy = $request->create('/oauth/token', 'POST');
-                    $response = Route::dispatch($proxy);
-
-                    $json = (array) json_decode($response->getContent());
-                    $json['user_id'] = $resultUser->id;
-                    $json['email'] = $resultUser->email;
-                    return $response->setContent(json_encode($json));
-              
+                }
             }else{
                  // Password False
-            return response()->json([
-                "status" => "0",
-                "error" => "invalid_credentials",
-                "message" => "Anda memasukkan Email dan Password yang salah. Isi dengan data yang benar dan coba lagi"
-               ]);
+                return response()->json([
+                    "status" => "0",
+                    "error" => "invalid_credentials",
+                    "message" => "Anda memasukkan Email dan Password yang salah. Isi dengan data yang benar dan coba lagi"
+                ]);
             }
         }else{
-            // User Not Exist
+            // Email Not Exist
             return response()->json([
                 "status" => "0",
                 "error" => "invalid_credentials",
                 "message" => "Email tidak terdaftar"
-               ]);
+            ]);
         }
     }
 }
