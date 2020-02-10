@@ -30,5 +30,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/report', 'Api\ReportController@GetReport');
     Route::post('/report', 'Api\ReportController@PostReport');
     Route::get('/single-report/{id}', 'Api\ReportController@GetSingleReport');
-    Route::post('/single-report', 'Api\ReportController@PostSingleReport');
+    Route::post('/single-report/{id}', 'Api\ReportController@PostSingleReport');
 });

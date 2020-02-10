@@ -98,4 +98,47 @@ class ReportController extends Controller
             ]);
         }
     }
+
+    public function PostSingleReport(Request $request, $id)
+    {
+        $validatedData = $this->validate($request, [
+        'terukur' => 'required',
+        'tergambar' => 'required',
+        'kkp' => 'required',
+        'pengukuran' => 'required',
+        'pemetaan' => 'required',
+        'pbt' => 'required',
+        'su' => 'required',
+        'pengumuman' => 'required',
+        'pengesahan' => 'required',
+        'keterangan' => 'nullable',
+        ]);
+
+        $accessToken = Auth::user()->token();
+
+        try {
+            $results = ReportHarian::find($id)->update([
+                'terukur' => $validatedData['terukur'],
+                'tergambar' => $validatedData['tergambar'],
+                'kkp' => $validatedData['kkp'],
+                'pengukuran' => $validatedData['pengukuran'],
+                'pemetaan' => $validatedData['pemetaan'],
+                'pbt' => $validatedData['pbt'],
+                'su' => $validatedData['su'],
+                'pengumuman' => $validatedData['pengumuman'],
+                'pengesahan' => $validatedData['pengesahan'],
+                'keterangan' => $validatedData['keterangan']
+            ]);
+
+            return response()->json([
+                'status' => '1',
+                'message' => 'success'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
 }
