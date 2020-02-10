@@ -78,4 +78,24 @@ class ReportController extends Controller
             ]);
         }
     }
+
+    public function GetSingleReport($id)
+    {
+        $accessToken = Auth::user()->token();
+
+        try {
+            $results = ReportHarian::with(['project_location' => function ($query) {
+                $query->with('kotakab', 'kecamatan', 'desa');
+            }])->where(['user_id' => $accessToken->user_id, 'id' => $id])->orderBy('id', 'desc')->first();
+            return response()->json([
+                'status' => '1',
+                'data' => $results
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
 }
