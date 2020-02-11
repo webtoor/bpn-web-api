@@ -31,26 +31,34 @@ class ReportController extends Controller
         $accessToken = Auth::user()->token();
 
         try {
-            $results = ReportHarian::create([
-                'user_id' => $accessToken->user_id,
-                'project_location_id' => $validatedData['lokasi'],
-                'terukur' => $validatedData['terukur'],
-                'tergambar' => $validatedData['tergambar'],
-                'kkp' => $validatedData['kkp'],
-                'pengukuran' => $validatedData['pengukuran'],
-                'pemetaan' => $validatedData['pemetaan'],
-                'pbt' => $validatedData['pbt'],
-                'su' => $validatedData['su'],
-                'pengumuman' => $validatedData['pengumuman'],
-                'pengesahan' => $validatedData['pengesahan'],
-                'keterangan' => $validatedData['keterangan'],
-                'dtreport' => $validatedData['dtreport']
-            ]);
-
-            return response()->json([
-                'status' => '1',
-                'message' => 'success'
-            ]);
+            $check = ReportHarian::where(['user_id' => $accessToken->user_id, 'dtreport' => $validatedData['dtreport']])->get();
+            if(count($check) < 1){
+                $results = ReportHarian::create([
+                    'user_id' => $accessToken->user_id,
+                    'project_location_id' => $validatedData['lokasi'],
+                    'terukur' => $validatedData['terukur'],
+                    'tergambar' => $validatedData['tergambar'],
+                    'kkp' => $validatedData['kkp'],
+                    'pengukuran' => $validatedData['pengukuran'],
+                    'pemetaan' => $validatedData['pemetaan'],
+                    'pbt' => $validatedData['pbt'],
+                    'su' => $validatedData['su'],
+                    'pengumuman' => $validatedData['pengumuman'],
+                    'pengesahan' => $validatedData['pengesahan'],
+                    'keterangan' => $validatedData['keterangan'],
+                    'dtreport' => $validatedData['dtreport']
+                ]);
+                return response()->json([
+                    'status' => '1',
+                    'message' => 'success'
+                ]);
+            }else{
+                return response()->json([
+                    "status" => "0",
+                    "message" => "Anda telah membuat Laporan pada tanggal yang sama"
+                ]);
+            }
+            
         } catch (\Exception $e) {
             return response()->json([
                 'status' => '0',
