@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'admin-panel';
 
     /**
      * Create a new controller instance.
@@ -46,9 +46,9 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
         $user = $request->user()->role;
         if ($user->role_id == '1') {
-            return redirect('home');
+            return redirect('admin-panel');
         }else{
-            return redirect('login');
+            return redirect('logout');
         }
        
     }

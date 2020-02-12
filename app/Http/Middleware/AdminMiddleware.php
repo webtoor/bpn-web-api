@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Auth;
 class AdminMiddleware
 {
     /**
@@ -29,4 +29,6 @@ class AdminMiddleware
         
         return abort(403);
     }
+
+    
 }
