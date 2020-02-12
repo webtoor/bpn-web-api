@@ -22,7 +22,9 @@ class CreateProjectLocationTable extends Migration
             $table->char('kotakab_id', 4);
             $table->char('kecamatan_id', 7);
             $table->char('desa_id', 10);
-            $table->integer('target')->unsigned();
+            $table->integer('target_pbt')->unsigned();
+            $table->integer('target_shat')->unsigned();
+            $table->integer('target_k4')->unsigned();
             $table->integer('tim')->unsigned();
             $table->timestamps();
 

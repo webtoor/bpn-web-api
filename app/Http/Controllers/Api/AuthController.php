@@ -39,7 +39,9 @@ class AuthController extends Controller
             'kotakab' => 'required',
             'kecamatan' => 'required',
             'desa' => 'required',
-            'target' => 'required|numeric',
+            'target_pbt' => 'required|numeric',
+            'target_shat' => 'required|numeric',
+            'target_k4' => 'required|numeric',
             'tim' => 'required|numeric',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:5|confirmed',
@@ -64,7 +66,9 @@ class AuthController extends Controller
              'kotakab_id' => $validatedData['kotakab'],
              'kecamatan_id' => $validatedData['kecamatan'],
              'desa_id' => $validatedData['desa'],
-             'target' => $validatedData['target'],
+             'target_pbt' => $validatedData['target_pbt'],
+             'target_shat' => $validatedData['target_shat'],
+             'target_k4' => $validatedData['target_k4'],
              'tim' => $validatedData['tim']
             ]);
 
