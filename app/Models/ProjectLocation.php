@@ -13,7 +13,9 @@ class ProjectLocation extends Model
         'kecamatan_id',
         'desa_id',
         'tim',
-        'target',
+        'target_pbt',
+        'target_shat',
+        'target_k4',
     ];
     public $timestamps = true;
 
