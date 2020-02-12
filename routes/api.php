@@ -27,6 +27,7 @@ Route::get('/desa/{kecamatan_id}', 'Api\LocationController@GetDesa');
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/get-location', 'Api\LocationController@GetLocation');
+    Route::post('/add-location', 'Api\LocationController@AddLocation');
     Route::get('/report', 'Api\ReportController@GetReport');
     Route::post('/report', 'Api\ReportController@PostReport');
     Route::get('/single-report/{id}', 'Api\ReportController@GetSingleReport');
