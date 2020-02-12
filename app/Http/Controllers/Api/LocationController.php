@@ -72,4 +72,37 @@ class LocationController extends Controller
             ]);
         }
     }
+
+    public function AddLocation(Request $request){
+        $validatedData = $this->validate($request,[
+            'kotakab' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
+            'target' => 'required|numeric',
+            'tim' => 'required|numeric',
+        ]);
+        $accessToken = Auth::user()->token();
+
+        try {
+            ProjectLocation::create([
+                'user_id' => $accessToken->user_id,
+                'kotakab_id' => $validatedData['kotakab'],
+                'kecamatan_id' => $validatedData['kecamatan'],
+                'desa_id' => $validatedData['desa'],
+                'target' => $validatedData['target'],
+                'tim' => $validatedData['tim']
+            ]);
+            return response()->json([
+                'status' => '1',
+                'message' => 'success'
+            ]);
+ 
+         } catch (\Exception $e) {
+             return response()->json([
+                 'status' => '0',
+                 'error' => $e->getMessage()
+             ]);
+        }
+
+    }
 }
