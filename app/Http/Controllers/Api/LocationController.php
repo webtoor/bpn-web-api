@@ -73,7 +73,7 @@ class LocationController extends Controller
         }
     }
 
-    public function AddLocation(Request $request){
+    public function AddNewLocation(Request $request){
         $validatedData = $this->validate($request,[
             'kotakab' => 'required',
             'kecamatan' => 'required',
