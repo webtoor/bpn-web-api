@@ -124,7 +124,6 @@ class ReportController extends Controller
                 'tergambar' => $validatedData['tergambar'],
                 'k4' => $validatedData['k4'],
                 'pemberkasan' => $validatedData['pemberkasan'],
-                'pemberkasan' => $validatedData['pemberkasan'],
                 'aplikasi_fisik_pbt' => $validatedData['aplikasi_fisik_pbt'],
                 'aplikasi_fisik_k4' => $validatedData['aplikasi_fisik_k4'],
                 'aplikasi_fisik_yuridis' => $validatedData['aplikasi_fisik_yuridis'],
