@@ -19,13 +19,11 @@ class CreateReportHarianTable extends Migration
             $table->integer('project_location_id')->unsigned();
             $table->integer('terukur');
             $table->integer('tergambar');
-            $table->integer('kkp');
-            $table->integer('pengukuran');
-            $table->integer('pemetaan');
-            $table->integer('pbt');
-            $table->integer('su');
-            $table->integer('pengumuman');
-            $table->integer('pengesahan');
+            $table->integer('k4');
+            $table->integer('puldadis');
+            $table->integer('aplikasi_fisik_pbt');
+            $table->integer('aplikasi_fisik_k4');
+            $table->integer('aplikasi_fisik_yuridis');
             $table->string('keterangan');
             $table->date('dtreport');
 

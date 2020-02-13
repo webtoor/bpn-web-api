@@ -18,7 +18,7 @@ class ReportController extends Controller
         'terukur' => 'required',
         'tergambar' => 'required',
         'k4' => 'required',
-        'puldadis' => 'required',
+        'pemberkasan' => 'required',
         'aplikasi_fisik_pbt' => 'required',
         'aplikasi_fisik_k4' => 'required',
         'aplikasi_fisik_yuridis' => 'required',
@@ -37,7 +37,7 @@ class ReportController extends Controller
                     'terukur' => $validatedData['terukur'],
                     'tergambar' => $validatedData['tergambar'],
                     'k4' => $validatedData['k4'],
-                    'puldadis' => $validatedData['puldadis'],
+                    'pemberkasan' => $validatedData['pemberkasan'],
                     'aplikasi_fisik_pbt' => $validatedData['aplikasi_fisik_pbt'],
                     'aplikasi_fisik_k4' => $validatedData['aplikasi_fisik_k4'],
                     'aplikasi_fisik_yuridis' => $validatedData['aplikasi_fisik_yuridis'],
@@ -106,16 +106,14 @@ class ReportController extends Controller
     public function PostSingleReport(Request $request, $id)
     {
         $validatedData = $this->validate($request, [
-        'terukur' => 'required',
-        'tergambar' => 'required',
-        'kkp' => 'required',
-        'pengukuran' => 'required',
-        'pemetaan' => 'required',
-        'pbt' => 'required',
-        'su' => 'required',
-        'pengumuman' => 'required',
-        'pengesahan' => 'required',
-        'keterangan' => 'nullable',
+            'terukur' => 'required',
+            'tergambar' => 'required',
+            'k4' => 'required',
+            'pemberkasan' => 'required',
+            'aplikasi_fisik_pbt' => 'required',
+            'aplikasi_fisik_k4' => 'required',
+            'aplikasi_fisik_yuridis' => 'required',
+            'keterangan' => 'nullable',
         ]);
 
         $accessToken = Auth::user()->token();
@@ -124,13 +122,12 @@ class ReportController extends Controller
             $results = ReportHarian::find($id)->update([
                 'terukur' => $validatedData['terukur'],
                 'tergambar' => $validatedData['tergambar'],
-                'kkp' => $validatedData['kkp'],
-                'pengukuran' => $validatedData['pengukuran'],
-                'pemetaan' => $validatedData['pemetaan'],
-                'pbt' => $validatedData['pbt'],
-                'su' => $validatedData['su'],
-                'pengumuman' => $validatedData['pengumuman'],
-                'pengesahan' => $validatedData['pengesahan'],
+                'k4' => $validatedData['k4'],
+                'pemberkasan' => $validatedData['pemberkasan'],
+                'pemberkasan' => $validatedData['pemberkasan'],
+                'aplikasi_fisik_pbt' => $validatedData['aplikasi_fisik_pbt'],
+                'aplikasi_fisik_k4' => $validatedData['aplikasi_fisik_k4'],
+                'aplikasi_fisik_yuridis' => $validatedData['aplikasi_fisik_yuridis'],
                 'keterangan' => $validatedData['keterangan']
             ]);
 

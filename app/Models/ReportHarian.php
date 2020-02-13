@@ -13,7 +13,7 @@ class ReportHarian extends Model
         'terukur',
         'tergambar',
         'k4',
-        'puldadis',
+        'pemberkasan',
         'aplikasi_fisik_pbt',
         'aplikasi_fisik_k4',
         'aplikasi_fisik_yuridis',
