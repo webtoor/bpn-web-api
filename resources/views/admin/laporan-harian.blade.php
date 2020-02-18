@@ -50,27 +50,97 @@
               </tr>
             </thead>
             <tbody>
+              <?php 
+                $total_target_pbt = 0;
+                $total_target_shat = 0;
+                $total_target_k4 = 0;
+                $total_terukur = 0;
+                $total_tergambar = 0;
+                $total_k4 = 0;
+                $total_pemberkasan = 0;
+                $total_aplikasi_fisik_pbt = 0;
+                $total_aplikasi_fisik_k4 = 0;
+                $total_aplikasi_fisik_yuridis = 0;
+              ?>
                 @foreach ($reportharian as $row)
               <tr>
                 <td>{{$row->project_location->kotakab->name}}</td>
                 <td>{{$row->project_location->kecamatan->name}}</td>
                 <td>{{$row->project_location->desa->name}}</td>
-                <td>{{$row->project_location->target_pbt}}</td>
-                <td>{{$row->project_location->target_shat}}</td>
-                <td>{{$row->project_location->target_k4}}</td>
+                <td>{{$row->project_location->target_pbt}}
+                  <?php 
+                  $total_target_pbt += $row->project_location->target_pbt;
+                  ?>
+                </td>
+                <td>{{$row->project_location->target_shat}}
+                  <?php 
+                  $total_target_shat += $row->project_location->target_shat;
+                  ?>
+                </td>
+                <td>{{$row->project_location->target_k4}}
+                  <?php 
+                  $total_target_k4 += $row->project_location->target_k4;
+                  ?>
+                </td>
                 <td>{{$row->project_location->user->pelaksana}}</td>
                 <td>{{$row->project_location->tim}}</td>
-                <td>{{$row->terukur}}</td>
-                <td>{{$row->tergambar}}</td>
-                <td>{{$row->k4}}</td>
-                <td>{{$row->pemberkasan}}</td>
-                <td>{{$row->aplikasi_fisik_pbt}}</td>
-                <td>{{$row->aplikasi_fisik_k4}}</td>
-                <td>{{$row->aplikasi_fisik_yuridis}}</td>
+                <td>{{$row->terukur}}
+                  <?php 
+                  $total_terukur += $row->terukur;
+                  ?>
+                </td>
+                <td>{{$row->tergambar}}
+                  <?php 
+                  $total_tergambar += $row->tergambar;
+                  ?>
+                </td>
+                <td>{{$row->k4}}
+                  <?php 
+                  $total_k4 += $row->k4;
+                  ?>
+                </td>
+                <td>{{$row->pemberkasan}}
+                  <?php 
+                  $total_pemberkasan += $row->pemberkasan;
+                  ?>
+                </td>
+                <td>{{$row->aplikasi_fisik_pbt}}
+                  <?php 
+                  $total_aplikasi_fisik_pbt += $row->aplikasi_fisik_pbt;
+                  ?>
+                </td>
+                <td>{{$row->aplikasi_fisik_k4}}
+                  <?php 
+                  $total_aplikasi_fisik_k4 += $row->aplikasi_fisik_k4;
+                  ?>
+                </td>
+                <td>{{$row->aplikasi_fisik_yuridis}}
+                  <?php 
+                  $total_aplikasi_fisik_yuridis += $row->aplikasi_fisik_yuridis;
+                  ?>
+                </td>
                 <td>{{$row->keterangan}}</td>
               </tr>
               @endforeach
             </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="3" style="text-align:center">TOTAL</th>
+                <th>{{$total_target_pbt}}</th>
+                <th>{{$total_target_shat}}</th>
+                <th>{{$total_target_k4}}</th>
+                <th>-</th>
+                <th>-</th>
+                <th>{{$total_terukur}}</th>
+                <th>{{$total_tergambar}}</th>
+                <th>{{$total_k4}}</th>
+                <th>{{$total_pemberkasan}}</th>
+                <th>{{$total_aplikasi_fisik_yuridis}}</th>
+                <th>{{$total_aplikasi_fisik_k4}}</th>
+                <th>{{$total_aplikasi_fisik_yuridis}}</th>
+                <th>-</th>
+              </tr>
+            </tfoot>
           </table>
         </div>
         <!-- /.card-body -->

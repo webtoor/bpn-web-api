@@ -41,4 +41,7 @@ class User extends Authenticatable
     public function role(){
         return $this->hasOne('App\Models\UserRole', 'user_id', 'id');
     }
+    public function project_location(){
+        return $this->hasOne('App\Models\ProjectLocation', 'user_id', 'id');
+    }
 }

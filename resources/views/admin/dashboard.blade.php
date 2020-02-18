@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-    <h1>Dashboard</h1>
+    <h1>Verifikasi Pelaksana</h1>
 
 @stop
 
@@ -16,51 +16,43 @@
    <div class="row">
     <div class="col-12">
       <div class="card">
-        <div class="card-header">
+       {{--  <div class="card-header">
           <h3 class="card-title">Responsive Hover Table</h3>
 
-        </div>
+        </div> --}}
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
-          <table class="table table-hover text-nowrap">
+          <table class="table table-hover table-bordered text-nowrap">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Reason</th>
+                <th>Pelaksana</th>
+                <th>Kota/Kabupaten</th>
+                <th>Kecamatan</th>
+                <th>Desa</th>
+                <th>Tim</th>
+                <th>Target PBT</th>
+                <th>Target SHAT</th>
+                <th>Target K4</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
+              @foreach ($user as $row)
               <tr>
-                <td>183</td>
-                <td>John Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-success">Approved</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                <td>{{$row->pelaksana}}</td>
+                <td>{{$row->project_location->kotakab->name}}</td>
+                <td>{{$row->project_location->kecamatan->name}}</td>
+                <td>{{$row->project_location->desa->name}}</td>
+                <td>{{$row->project_location->tim}}</td>
+                <td>{{$row->project_location->target_pbt}}</td>
+                <td>{{$row->project_location->target_shat}}</td>
+                <td>{{$row->project_location->target_k4}}</td>
+                <td>
+                  <button type="button" class="btn btn-block btn-primary btn-sm">Check</button>
+
+                </td>
               </tr>
-              <tr>
-                <td>219</td>
-                <td>Alexander Pierce</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-warning">Pending</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-              <tr>
-                <td>657</td>
-                <td>Bob Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-primary">Approved</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-              <tr>
-                <td>175</td>
-                <td>Mike Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-danger">Denied</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

@@ -57,7 +57,7 @@
               ?>
                 @foreach ($kota as $row)
               <tr>
-                <td>{{$row->name}}</td>
+                <td><a href="{{route('admin-panel.laporan-kumulatif-detail', ['kotakab_id' => $row->id])}}">{{$row->name}}</a></td>
                 {{-- TARGET PBT --}}
                 <td>
                     <?php $target_pbt = 0 ?>
@@ -65,7 +65,7 @@
                         <?php 
                         $target_pbt += $target->target_pbt;
                         $total_target_pbt += $target->target_pbt;
-                       ?>
+                         ?>
                     @endforeach
                     {{$target_pbt}}
                 </td>
