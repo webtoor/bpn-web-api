@@ -112,11 +112,11 @@ return [
     |
     */
 
-    'right_sidebar' => true,
+    'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
-    'right_sidebar_slide' => true,
-    'right_sidebar_push' => true,
+    'right_sidebar_slide' => false,
+    'right_sidebar_push' => false,
     'right_sidebar_scrollbar_theme' => 'os-theme-light',
     'right_sidebar_scrollbar_auto_hide' => 'l',
 
@@ -134,13 +134,13 @@ return [
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin-panel',
 
     'logout_url' => 'logout',
 
     'login_url' => 'login',
 
-    'register_url' => null,
+    'register_url' => false,
 
     'password_reset_url' => 'password/reset',
 
@@ -173,35 +173,33 @@ return [
     */
 
     'menu' => [
-        [
+      /*   [
             'text' => 'search',
             'search' => true,
             'topnav' => true,
-        ],
-        [
+        ], */
+      /*   [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
-        ],
+        ], */
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'        => 'Dashboard',
+            'url'         => 'admin-panel',
+            'icon'        => 'fas fa-tachometer-alt',
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'LAPORAN'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
+            'text' => 'Laporan Harian',
+            'url'  => 'admin-panel/laporan-harian',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
+            'text' => 'Laporan Kumulatif',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        [
+       /*  [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
@@ -238,8 +236,8 @@ return [
                     'url'  => '#',
                 ],
             ],
-        ],
-        ['header' => 'labels'],
+        ], */
+       /*  ['header' => 'labels'],
         [
             'text'       => 'important',
             'icon_color' => 'red',
@@ -251,7 +249,7 @@ return [
         [
             'text'       => 'information',
             'icon_color' => 'aqua',
-        ],
+        ], */
     ],
 
     /*
