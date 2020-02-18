@@ -45,5 +45,6 @@ Route::group(['middleware' => ['guest','auth']], function(){
 Route::group(['prefix'=> 'admin-panel', 'as'=> 'admin-panel' . '.', 'middleware' => ['admin']], function(){
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::get('/laporan-harian', 'HomeController@LaporanHarian')->name('laporan-harian');
+    Route::get('/laporan-kumulatif', 'HomeController@LaporanKumulatif')->name('laporan-kumulatif');
 
 });

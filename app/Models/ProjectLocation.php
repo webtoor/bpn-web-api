@@ -19,6 +19,11 @@ class ProjectLocation extends Model
     ];
     public $timestamps = true;
 
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function kotakab(){
         return $this->belongsTo('App\Models\KotaKabupaten');
     }
@@ -30,4 +35,8 @@ class ProjectLocation extends Model
     public function desa(){
         return $this->belongsTo('App\Models\Desa');
     }
+
+    public function reportharian(){
+        return $this->hasMany('App\Models\ReportHarian', 'project_location_id', 'id');
+    }   
 }

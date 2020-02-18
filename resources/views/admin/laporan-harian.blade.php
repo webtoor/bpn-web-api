@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-    <h1>Laporan Harian</h1>
+    <h1>Laporan Hari Ini</h1>
 
 @stop
 
@@ -25,17 +25,20 @@
           <table class="table table-hover table-bordered text-nowrap">
             <thead>
               <tr>
-                <th rowspan="2"></th>
+                <th colspan="3" style="text-align:center">LOKASI</th>
                 <th colspan="3" style="text-align:center">TARGET</th>
+                <th colspan="2" style="vertical-align : middle; text-align:center">PELAKSANA</th>
                 <th colspan="10" style="text-align:center">REALISASI</th>
-
-                
               </tr>
               <tr>
-            
+                <th>Kota/Kabupaten</th>
+                <th>Kecamatan</th>
+                <th>Desa</th>
                 <th>PBT</th>
                 <th>SHAT</th>
                 <th>K4</th>
+                <th style="text-align:center">Nama</th>
+                <th>Tim</th>
                 <th>Terukur</th>
                 <th>Tergambar</th>
                 <th>K4</th>
@@ -43,41 +46,28 @@
                 <th>Aplikasi Fisik PBT</th>
                 <th>Aplikasi Fisik K4</th>
                 <th>Aplikasi Fisik Yuridis</th>
+                <th>Keterangan</th>
               </tr>
             </thead>
             <tbody>
-                @foreach ($kota as $row)
+                @foreach ($reportharian as $row)
               <tr>
-                <td>{{$row->name}}</td>
-                <td>
-                    <?php $target_pbt = 0 ?>
-                    @foreach ($row->project_location as $target)
-                       <?php $target_pbt += $target->target_pbt?>
-                    @endforeach
-                    {{$target_pbt}}
-                </td>
-                <td>
-                    <?php $target_shat = 0 ?>
-                    @foreach ($row->project_location as $target)
-                       <?php $target_shat += $target->target_shat?>
-                    @endforeach
-                    {{$target_shat}}
-                </td>
-                <td>
-                    <?php $target_k4 = 0 ?>
-                    @foreach ($row->project_location as $target)
-                       <?php $target_k4 += $target->target_k4?>
-                    @endforeach
-                    {{$target_k4}}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-               
+                <td>{{$row->project_location->kotakab->name}}</td>
+                <td>{{$row->project_location->kecamatan->name}}</td>
+                <td>{{$row->project_location->desa->name}}</td>
+                <td>{{$row->project_location->target_pbt}}</td>
+                <td>{{$row->project_location->target_shat}}</td>
+                <td>{{$row->project_location->target_k4}}</td>
+                <td>{{$row->project_location->user->pelaksana}}</td>
+                <td>{{$row->project_location->tim}}</td>
+                <td>{{$row->terukur}}</td>
+                <td>{{$row->tergambar}}</td>
+                <td>{{$row->k4}}</td>
+                <td>{{$row->pemberkasan}}</td>
+                <td>{{$row->aplikasi_fisik_pbt}}</td>
+                <td>{{$row->aplikasi_fisik_k4}}</td>
+                <td>{{$row->aplikasi_fisik_yuridis}}</td>
+                <td>{{$row->keterangan}}</td>
               </tr>
               @endforeach
             </tbody>

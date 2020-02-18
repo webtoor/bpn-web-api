@@ -196,7 +196,7 @@ return [
         ],
         [
             'text' => 'Laporan Kumulatif',
-            'url'  => 'admin/settings',
+            'url'  => 'admin-panel/laporan-kumulatif',
             'icon' => 'fas fa-fw fa-lock',
         ],
        /*  [
