@@ -96,7 +96,6 @@ class AuthController extends Controller
         if($resultUser) {  
             if (Hash::check($validatedData['password'], $resultUser->password)) {
                 if ($resultUser->status == '1') {
-                    $user_role = $resultUser->role->role_id;
                     $request->request->add([
                             "grant_type" => "password",
                             "client_id" => "1",

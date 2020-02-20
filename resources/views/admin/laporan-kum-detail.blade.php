@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Laporan Kumulatif Detail')
 
 @section('content_header')
 
@@ -61,6 +61,7 @@
                     $total_aplikasi_fisik_k4 = 0;
                     $total_aplikasi_fisik_yuridis = 0;
               ?>
+                @if(count($detail) > 0)
                 @foreach ($detail as $row)
               <tr>
                 <td>{{$row->kotakab->name}}</td>
@@ -156,6 +157,9 @@
                 </td>
               </tr>
               @endforeach
+              @else
+              <td colspan="17" style="text-align:center">Laporan Masih Kosong</td>
+              @endif
             </tbody>
             <tfoot>
                 <tr>

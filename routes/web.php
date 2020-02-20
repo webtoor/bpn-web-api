@@ -44,9 +44,8 @@ Route::group(['middleware' => ['guest','auth']], function(){
 });  
 Route::group(['prefix'=> 'admin-panel', 'as'=> 'admin-panel' . '.', 'middleware' => ['admin']], function(){
     Route::get('/', 'HomeController@index')->name('dashboard');
+    Route::put('/verifikasi', 'HomeController@verifikasi')->name('verifikasi');
     Route::get('/laporan-harian', 'HomeController@LaporanHarian')->name('laporan-harian');
     Route::get('/laporan-kumulatif', 'HomeController@LaporanKumulatif')->name('laporan-kumulatif');
     Route::get('/laporan-kumulatif/{kotakab_id}', 'HomeController@LaporanKumulatifDetail')->name('laporan-kumulatif-detail');
-
-
 });

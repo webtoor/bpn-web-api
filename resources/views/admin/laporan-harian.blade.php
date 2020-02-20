@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Laporan Harian')
 
 @section('content_header')
 
@@ -62,6 +62,7 @@
                 $total_aplikasi_fisik_k4 = 0;
                 $total_aplikasi_fisik_yuridis = 0;
               ?>
+                @if(count($reportharian) > 0)
                 @foreach ($reportharian as $row)
               <tr>
                 <td>{{$row->project_location->kotakab->name}}</td>
@@ -122,6 +123,9 @@
                 <td>{{$row->keterangan}}</td>
               </tr>
               @endforeach
+              @else
+              <td colspan="17" style="text-align:center">Belum ada Laporan hari ini</td>
+              @endif
             </tbody>
             <tfoot>
               <tr>

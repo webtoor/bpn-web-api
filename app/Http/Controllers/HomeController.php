@@ -33,7 +33,12 @@ class HomeController extends Controller
             }])->where('status', '0')->get();
         return view('admin.dashboard', ['user' => $user]);
     }
-
+    public function verifikasi(Request $request){
+        User::where('id',$request->pelaksana_id)->update([
+            'status' => '1'
+        ]);
+        return back()->withSuccess(trans('Anda Berhasil menambahkan mitra')); 
+    }
     public function LaporanHarian(){
         $reportharian = ReportHarian::with(['project_location' => function ($query) {
             $query->with('user', 'kotakab', 'kecamatan', 'desa');

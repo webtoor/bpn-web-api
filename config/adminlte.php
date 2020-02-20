@@ -192,12 +192,12 @@ return [
         [
             'text' => 'Laporan Harian',
             'url'  => 'admin-panel/laporan-harian',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-book',
         ],
         [
             'text' => 'Laporan Kumulatif',
             'url'  => 'admin-panel/laporan-kumulatif',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-book',
         ],
        /*  [
             'text'    => 'multilevel',
