@@ -104,30 +104,42 @@ class AuthController extends Controller
         $resultUser = User::where('email', $validatedData['email'])->first();
         if($resultUser) {  
             if (Hash::check($validatedData['password'], $resultUser->password)) {
-                if ($resultUser->status == '1') {
-                    $request->request->add([
-                            "grant_type" => "password",
-                            "client_id" => "1",
-                            "client_secret" => "dK0dG45AMwufVABi2yUygEWKG0ODSQasvRfrred0",
-                            "username"  => $request->json('email'),
-                            "password"  => $request->json('password'),
-                            "scope"     => "*"
+                if(($resultUser->role->role_id == '1') || ($resultUser->role->role_id == '2') ){
+                    if ($resultUser->status == '1') {
+                        $request->request->add([
+                                "grant_type" => "password",
+                                "client_id" => "1",
+                                "client_secret" => "dK0dG45AMwufVABi2yUygEWKG0ODSQasvRfrred0",
+                                "username"  => $request->json('email'),
+                                "password"  => $request->json('password'),
+                                "scope"     => "*"
+                            ]);
+                            $proxy = $request->create('/oauth/token', 'POST');
+                            $response = Route::dispatch($proxy);
+        
+                            $json = (array) json_decode($response->getContent());
+                            $json['user_id'] = $resultUser->id;
+                            $json['email'] = $resultUser->email;
+                            return $response->setContent(json_encode($json));
+                    }else{
+                        //Status Belum Aktif
+                        return response()->json([
+                            "status" => "0",
+                            "error" => "invalid_credentials",
+                            "message" => "Akun Anda Belum diverifikasi, Silakan Tunggu 1x24 jam"
                         ]);
-                        $proxy = $request->create('/oauth/token', 'POST');
-                        $response = Route::dispatch($proxy);
-    
-                        $json = (array) json_decode($response->getContent());
-                        $json['user_id'] = $resultUser->id;
-                        $json['email'] = $resultUser->email;
-                        return $response->setContent(json_encode($json));
+                    }
                 }else{
-                    //Status Belum Aktif
+
+                  // Role Validation
+
                     return response()->json([
                         "status" => "0",
                         "error" => "invalid_credentials",
-                        "message" => "Akun Anda Belum diverifikasi, Silakan Tunggu 1x24 jam"
+                        "message" => "Anda memasukkan Email dan Password yang salah. Isi dengan data yang benar dan coba lagi"
                     ]);
                 }
+               
             }else{
                  // Password False
                 return response()->json([

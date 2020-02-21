@@ -4,22 +4,50 @@
 
 @section('content_header')
 
-    <h1>Laporan Hari Ini</h1>
+    <h1>Laporan Harian</h1>
 
 @stop
-
 @section('css')
-   {{--  <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+<link rel="stylesheet" href="../vendor/daterangepicker/daterangepicker.css">
 @stop
 
 @section('content')
    <div class="row">
     <div class="col-12">
-      <div class="card">
-       {{--  <div class="card-header">
-          <h3 class="card-title">Responsive Hover Table</h3>
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Date picker</h3>
+        </div>
+        <div class="card-body">
+          <!-- Date range -->
+          <div class="form-group">
+            <label>Date range:</label>
 
-        </div> --}}
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="far fa-calendar-alt"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control float-right" id="reservation">
+            </div>
+            <!-- /.input group -->
+          </div>
+          <!-- /.form group -->
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card">
+    
+        <div class="card-header">
+          <h3 class="card-title">Laporan Harian Tanggal 
+
+            {{$reportharian[0]->dtreport}}
+          </h3>
+
+        </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
           <table class="table table-hover table-bordered text-nowrap">
@@ -155,5 +183,15 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script src="../vendor/moment/moment.min.js"></script>
+<script src="../vendor/daterangepicker/daterangepicker.js"></script>
+<script> console.log('Hi!'); 
+    //Date range picker with time picker
+    $('#reservation').daterangepicker({
+      timePickerIncrement: 30,
+      locale: {
+        format: 'DD/MM/YYYY'
+      }
+    })
+</script>
 @stop
