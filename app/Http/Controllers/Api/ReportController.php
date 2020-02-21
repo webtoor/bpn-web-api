@@ -29,7 +29,7 @@ class ReportController extends Controller
         $accessToken = Auth::user()->token();
 
         try {
-            $check = ReportHarian::where(['user_id' => $accessToken->user_id, 'dtreport' => $validatedData['dtreport']])->get();
+            $check = ReportHarian::where(['user_id' => $accessToken->user_id, 'dtreport' => $validatedData['dtreport'], 'project_location_id' => $validatedData['lokasi']])->get();
             if(count($check) < 1){
                 $results = ReportHarian::create([
                     'user_id' => $accessToken->user_id,
@@ -51,7 +51,7 @@ class ReportController extends Controller
             }else{
                 return response()->json([
                     "status" => "0",
-                    "message" => "Anda telah membuat Laporan pada tanggal yang sama"
+                    "message" => "Anda telah membuat Laporan pada tanggal & lokasi yang sama"
                 ]);
             }
             
