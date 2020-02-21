@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\ProjectLocation;
 use App\Models\KotaKabupaten;
 use App\Models\ReportHarian;
+use App\Models\UserRole;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    public function ajaxGetPelaksana($kotakab_id){
+        $collect =  ProjectLocation::with(['user' => function ($query) {
+           /*  $query->where('status', '1'); */
+            }])->where('kotakab_id', $kotakab_id)->get();
+        $unique = collect($collect)->unique('user_id');
+        $lokasi = $unique->values()->all();
+        return response()->json([
+            'status' => '1',
+            'data' => $lokasi
+        ]);
+
+
+    }
     public function index()
     {
         $user =  User::with(['project_location' => function ($query) {
@@ -43,7 +58,9 @@ class HomeController extends Controller
         $reportharian = ReportHarian::with(['project_location' => function ($query) {
             $query->with('user', 'kotakab', 'kecamatan', 'desa');
             }])->where('created_at', '>=', Carbon::today())->get();
-        return view('admin.laporan-harian', ['reportharian' => $reportharian]);
+        $pelaksana = UserRole::with('user')->whereIn('role_id', ['2', '3'])->get();
+        $kotakab = KotaKabupaten::where('province_id', 32)->get();
+        return view('admin.laporan-harian', ['reportharian' => $reportharian, 'pelaksana' => $pelaksana, 'kotakab' => $kotakab]);
     }
 
     public function LaporanKumulatif(){

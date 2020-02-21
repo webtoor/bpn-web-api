@@ -57,7 +57,7 @@ class AuthController extends Controller
                 'status' => "0"
             ]);
             
-            if($validatedData['tipe_pelaksana'] == '1'){
+            if($validatedData['tipe_pelaksana'] == '2'){
                 UserRole::create([
                     'user_id' => $user->id,
                     'role_id' => 2
@@ -104,7 +104,7 @@ class AuthController extends Controller
         $resultUser = User::where('email', $validatedData['email'])->first();
         if($resultUser) {  
             if (Hash::check($validatedData['password'], $resultUser->password)) {
-                if(($resultUser->role->role_id == '1') || ($resultUser->role->role_id == '2') ){
+                if(($resultUser->role->role_id == '2') || ($resultUser->role->role_id == '3') ){
                     if ($resultUser->status == '1') {
                         $request->request->add([
                                 "grant_type" => "password",

@@ -16,12 +16,14 @@
     <div class="col-12">
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Date picker</h3>
+          <h3 class="card-title">Pilih Range Tanggal</h3>
         </div>
         <div class="card-body">
+          {!! Form::open([ 'route' => ['filter'], 'method' => 'POST' ])!!}
+
           <!-- Date range -->
           <div class="form-group">
-            <label>Date range:</label>
+            <label>Kota/Kabupaten</label>
 
             <div class="input-group">
               <div class="input-group-prepend">
@@ -29,11 +31,46 @@
                   <i class="far fa-calendar-alt"></i>
                 </span>
               </div>
-              <input type="text" class="form-control float-right" id="reservation">
+              <select name="kotakab_id" id="selectKota" class="form-control" required>
+                <option selected value="">Pilih Kota/Kabupaten</option>
+                @foreach($kotakab as $rowkotakab)
+                <option value="{{ $rowkotakab['id'] }}">{{ $rowkotakab['name'] }} </option>
+              @endforeach  
+              </select>
+            </div>
+            <!-- /.input group -->
+          </div>
+          <div class="form-group">
+            <label>Pilih Pelaksana</label>
+
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="far fa-calendar-alt"></i>
+                </span>
+              </div>
+              <select name="user_id" id="selectPelaksana" class="form-control" required>
+                <option selected value="">Pilih Pelaksana</option>
+              </select>
+            </div>
+            <!-- /.input group -->
+          </div>
+          <div class="form-group">
+            <label>Tanggal:</label>
+
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="far fa-calendar-alt"></i>
+                </span>
+              </div>
+              <input type="text" name="dtrange" class="form-control float-right" id="reservation">
             </div>
             <!-- /.input group -->
           </div>
           <!-- /.form group -->
+          {!! Form::close() !!}
+
         </div>
         <!-- /.card-body -->
       </div>
@@ -42,9 +79,12 @@
       <div class="card">
     
         <div class="card-header">
-          <h3 class="card-title">Laporan Harian Tanggal 
-
-            {{$reportharian[0]->dtreport}}
+          <h3 class="card-title">
+            @if(count($reportharian) > 0)
+              Laporan Harian Tanggal {{date("j-m-Y", strtotime($reportharian[0]->dtreport)) }}
+            @else
+              Belum Ada Laporan Pada Tanggal {{date("j-m-Y", strtotime("now")) }}
+            @endif
           </h3>
 
         </div>
@@ -185,13 +225,55 @@
 @section('js')
 <script src="../vendor/moment/moment.min.js"></script>
 <script src="../vendor/daterangepicker/daterangepicker.js"></script>
-<script> console.log('Hi!'); 
+<script> 
+console.log('Hi!'); 
     //Date range picker with time picker
     $('#reservation').daterangepicker({
       timePickerIncrement: 30,
       locale: {
         format: 'DD/MM/YYYY'
       }
-    })
+    });
+    $(document).ready(function () {
+      $('select#selectKota').on('change', function (e) {
+      let optionSelected = $("option:selected", this);
+      let provinceName = $("option:selected", this).text();
+
+      let valueSelected = this.value;
+      console.log(valueSelected)
+        if(valueSelected){
+       /*      $("#selectKotaKab").prop('disabled', false);
+            $("#selectKotaKab option").remove();
+            $('#selectKotaKab').append($('<option>', {value:'', text:'Pilih Kota/Kabupaten'}, '</option>'));
+            $("#city_name").val("");
+
+            $("#selectKecamatan").prop('disabled', true);
+            $("#selectKecamatan option").remove();
+            $('#selectKecamatan').append($('<option>', {value:'', text:'Pilih Kecamatan'}, '</option>'));
+            $("#kecamatan_name").val(""); */
+
+        }else{
+
+            /* $("#selectKotaKab").prop('disabled', true);
+            $("#selectKotaKab option").remove();
+            $('#selectKotaKab').append($('<option>', {value:'', text:'Pilih Kota/Kabupaten'}, '</option>'));
+            $("#selectKecamatan").prop('disabled', true);
+            $("#selectKecamatan option").remove();
+            $('#selectKecamatan').append($('<option>', {value:'', text:'Pilih Kecamatan'}, '</option>')); */
+        }
+
+        $.ajax({
+              type: "GET",
+              url : "{{ url('admin-panel/get-pelaksana') }}/" + valueSelected,
+              dataType : "JSON",
+              success:function(results){
+                console.log(results)
+                $.each( results['data'], function(index, data) {
+                    $('#selectPelaksana').append($('<option>', { value:data['id'], text:data['user']['pelaksana'] + " - " + data['user']['email'] + " - Tim : " + data['tim']}, '</option>'));
+              })
+              }
+            });
+        });
+    });
 </script>
 @stop
