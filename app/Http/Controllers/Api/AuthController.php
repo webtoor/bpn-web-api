@@ -35,6 +35,7 @@ class AuthController extends Controller
     public function register(Request $request){
         
        $validatedData = $this->validate($request,[
+            'tipe_pelaksana' => 'required',
             'pelaksana' => 'required',
             'kotakab' => 'required',
             'kecamatan' => 'required',
@@ -55,11 +56,19 @@ class AuthController extends Controller
                 'password' => Hash::make($validatedData['password']),
                 'status' => "0"
             ]);
-
-            UserRole::create([
-                'user_id' => $user->id,
-                'role_id' => 2
-            ]);
+            
+            if($validatedData['tipe_pelaksana'] == '1'){
+                UserRole::create([
+                    'user_id' => $user->id,
+                    'role_id' => 2
+                ]);
+            }elseif($validatedData['tipe_pelaksana'] == '3'){
+                UserRole::create([
+                    'user_id' => $user->id,
+                    'role_id' => 3
+                ]);
+            }
+          
 
             ProjectLocation::create([
              'user_id' => $user->id,
