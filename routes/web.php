@@ -44,10 +44,10 @@ Route::group(['middleware' => ['guest','auth']], function(){
 });  
 Route::group(['prefix'=> 'admin-panel', 'as'=> 'admin-panel' . '.', 'middleware' => ['admin']], function(){
     Route::get('/get-pelaksana/{kotakab_id}', 'HomeController@ajaxGetPelaksana');
-    Route::get('/filter', 'HomeController@postFilter')->name('filter');
+    Route::post('/filter', 'HomeController@postFilter')->name('filter');
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::put('/verifikasi', 'HomeController@verifikasi')->name('verifikasi');
-    Route::get('/laporan-harian', 'HomeController@LaporanHarian')->name('laporan-harian');
+    Route::get('/laporan-harian/{lokasi_id}/{dtarray}', 'HomeController@LaporanHarian')->name('laporan-harian');
     Route::get('/laporan-kumulatif', 'HomeController@LaporanKumulatif')->name('laporan-kumulatif');
     Route::get('/laporan-kumulatif/{kotakab_id}', 'HomeController@LaporanKumulatifDetail')->name('laporan-kumulatif-detail');
 });

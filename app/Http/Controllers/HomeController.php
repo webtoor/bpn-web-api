@@ -38,6 +38,12 @@ class HomeController extends Controller
             'status' => '1',
             'data' => $lokasi
         ]);
+    }
+    public function postFilter(Request $request){
+        $lokasi_id = $request->lokasi_id;
+        $request->dtrange;
+        $dtarray = explode("-",$request->dtrange); 
+        return $this->LaporanHarian($lokasi_id, $dtarray);
 
 
     }
@@ -48,19 +54,35 @@ class HomeController extends Controller
             }])->where('status', '0')->get();
         return view('admin.dashboard', ['user' => $user]);
     }
+
     public function verifikasi(Request $request){
         User::where('id',$request->pelaksana_id)->update([
             'status' => '1'
         ]);
         return back()->withSuccess(trans('Anda Berhasil menambahkan mitra')); 
     }
-    public function LaporanHarian(){
-        $reportharian = ReportHarian::with(['project_location' => function ($query) {
-            $query->with('user', 'kotakab', 'kecamatan', 'desa');
-            }])->where('created_at', '>=', Carbon::today())->get();
-        $pelaksana = UserRole::with('user')->whereIn('role_id', ['2', '3'])->get();
-        $kotakab = KotaKabupaten::where('province_id', 32)->get();
-        return view('admin.laporan-harian', ['reportharian' => $reportharian, 'pelaksana' => $pelaksana, 'kotakab' => $kotakab]);
+
+    public function LaporanHarian($lokasi_id, $dtarray){
+        $dtstart = $dtarray[0];
+        $dtend = $dtarray[1];
+        $datestart = str_replace('/', '-', $dtstart);
+        $dateend = str_replace('/', '-', $dtend);
+        if(($lokasi_id == 'default') && ($dtarray == 'default')){
+            $reportharian = ReportHarian::with(['project_location' => function ($query) {
+                $query->with('user', 'kotakab', 'kecamatan', 'desa');
+                }])->where('dtreport', '>=', Carbon::today())->get();
+            /* $pelaksana = UserRole::with('user')->whereIn('role_id', ['2', '3'])->get(); */
+            $kotakab = KotaKabupaten::where('province_id', 32)->get();
+        }elseif(($lokasi_id != 'default') && ($dtarray != 'default')){
+            $reportharian = ReportHarian::with(['project_location' => function ($query) use ($datestart, $dateend) {
+                $query->with('user', 'kotakab', 'kecamatan', 'desa');
+                }])->whereBetween('dtreport', [date('Y-m-d', strtotime($datestart)), date('Y-m-d', strtotime($dateend))])->get();
+            $kotakab = KotaKabupaten::where('province_id', 32)->get();
+        }
+        return view('admin.laporan-harian', ['reportharian' => $reportharian, 'kotakab' => $kotakab, 'datestart' => $datestart, 'dateend' => $dateend]);
+
+     
+
     }
 
     public function LaporanKumulatif(){

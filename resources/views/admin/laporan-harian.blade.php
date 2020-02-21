@@ -8,7 +8,7 @@
 
 @stop
 @section('css')
-<link rel="stylesheet" href="../vendor/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/vendor/daterangepicker/daterangepicker.css">
 @stop
 
 @section('content')
@@ -16,10 +16,10 @@
     <div class="col-12">
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Pilih Range Tanggal</h3>
+          <h3 class="card-title">Cari Laporan Harian</h3>
         </div>
         <div class="card-body">
-          {!! Form::open([ 'route' => ['filter'], 'method' => 'POST' ])!!}
+          {!! Form::open([ 'route' => ['admin-panel.filter'], 'method' => 'POST' ])!!}
 
           <!-- Date range -->
           <div class="form-group">
@@ -41,7 +41,7 @@
             <!-- /.input group -->
           </div>
           <div class="form-group">
-            <label>Pilih Pelaksana</label>
+            <label>Pelaksana</label>
 
             <div class="input-group">
               <div class="input-group-prepend">
@@ -49,7 +49,7 @@
                   <i class="far fa-calendar-alt"></i>
                 </span>
               </div>
-              <select name="user_id" id="selectPelaksana" class="form-control" required>
+              <select name="location_id" id="selectPelaksana" class="form-control" required disabled>
                 <option selected value="">Pilih Pelaksana</option>
               </select>
             </div>
@@ -64,11 +64,12 @@
                   <i class="far fa-calendar-alt"></i>
                 </span>
               </div>
-              <input type="text" name="dtrange" class="form-control float-right" id="reservation">
+              <input type="text" name="dtrange" class="form-control float-right" id="reservation" required>
             </div>
             <!-- /.input group -->
           </div>
           <!-- /.form group -->
+          <button type="submit" class="btn btn-primary float-right">Cari</button>
           {!! Form::close() !!}
 
         </div>
@@ -81,9 +82,17 @@
         <div class="card-header">
           <h3 class="card-title">
             @if(count($reportharian) > 0)
-              Laporan Harian Tanggal {{date("j-m-Y", strtotime($reportharian[0]->dtreport)) }}
+             @if($datestart && $dateend)
+             Laporan harian tanggal {{$datestart}} s/d {{$dateend}}
+             @else
+              Laporan harian tanggal {{date("j-m-Y", strtotime($reportharian[0]->dtreport)) }}
+              @endif
             @else
-              Belum Ada Laporan Pada Tanggal {{date("j-m-Y", strtotime("now")) }}
+            @if(!$datestart && !$dateend)
+            Belum ada Laporan pada tanggal {{$datestart}} s/d {{$dateend}}
+            @else
+            Belum ada Laporan pada tanggal {{date("j-m-Y", strtotime("now")) }}
+             @endif
             @endif
           </h3>
 
@@ -115,6 +124,7 @@
                 <th>Aplikasi Fisik K4</th>
                 <th>Aplikasi Fisik Yuridis</th>
                 <th>Keterangan</th>
+                <th>Tanggal Laporan</th>
               </tr>
             </thead>
             <tbody>
@@ -189,10 +199,11 @@
                   ?>
                 </td>
                 <td>{{$row->keterangan}}</td>
+                <td> {{date("j-m-Y", strtotime($reportharian[0]->dtreport)) }}</td>
               </tr>
               @endforeach
               @else
-              <td colspan="17" style="text-align:center">Belum ada Laporan hari ini</td>
+              <td colspan="17" style="text-align:center">Belum ada Laporan</td>
               @endif
             </tbody>
             <tfoot>
@@ -211,6 +222,7 @@
                 <th>{{$total_aplikasi_fisik_k4}}</th>
                 <th>{{$total_aplikasi_fisik_yuridis}}</th>
                 <th>-</th>
+                <th>-</th>
               </tr>
             </tfoot>
           </table>
@@ -223,8 +235,8 @@
 @stop
 
 @section('js')
-<script src="../vendor/moment/moment.min.js"></script>
-<script src="../vendor/daterangepicker/daterangepicker.js"></script>
+<script src="/vendor/moment/moment.min.js"></script>
+<script src="/vendor/daterangepicker/daterangepicker.js"></script>
 <script> 
 console.log('Hi!'); 
     //Date range picker with time picker
@@ -242,24 +254,13 @@ console.log('Hi!');
       let valueSelected = this.value;
       console.log(valueSelected)
         if(valueSelected){
-       /*      $("#selectKotaKab").prop('disabled', false);
-            $("#selectKotaKab option").remove();
-            $('#selectKotaKab').append($('<option>', {value:'', text:'Pilih Kota/Kabupaten'}, '</option>'));
-            $("#city_name").val("");
-
-            $("#selectKecamatan").prop('disabled', true);
-            $("#selectKecamatan option").remove();
-            $('#selectKecamatan').append($('<option>', {value:'', text:'Pilih Kecamatan'}, '</option>'));
-            $("#kecamatan_name").val(""); */
-
+            $("#selectPelaksana").prop('disabled', false);
+            $("#selectPelaksana option").remove();
+            $('#selectPelaksana').append($('<option>', {value:'', text:'Pilih Pelaksana'}, '</option>'));
         }else{
-
-            /* $("#selectKotaKab").prop('disabled', true);
-            $("#selectKotaKab option").remove();
-            $('#selectKotaKab').append($('<option>', {value:'', text:'Pilih Kota/Kabupaten'}, '</option>'));
-            $("#selectKecamatan").prop('disabled', true);
-            $("#selectKecamatan option").remove();
-            $('#selectKecamatan').append($('<option>', {value:'', text:'Pilih Kecamatan'}, '</option>')); */
+            $("#selectPelaksana").prop('disabled', true);
+            $("#selectPelaksana option").remove();
+            $('#selectPelaksana').append($('<option>', {value:'', text:'Pilih Pelaksana'}, '</option>'));
         }
 
         $.ajax({
@@ -267,10 +268,18 @@ console.log('Hi!');
               url : "{{ url('admin-panel/get-pelaksana') }}/" + valueSelected,
               dataType : "JSON",
               success:function(results){
-                console.log(results)
-                $.each( results['data'], function(index, data) {
+                console.log(results['data'])
+                if(results['data'].length > 0) {
+                  $.each(results['data'], function(index, data) {
                     $('#selectPelaksana').append($('<option>', { value:data['id'], text:data['user']['pelaksana'] + " - " + data['user']['email'] + " - Tim : " + data['tim']}, '</option>'));
-              })
+                  });
+                }else if(results['data'].length < 1){
+                  $("#selectPelaksana option").remove();
+                  $("#selectPelaksana").prop('disabled', false);
+                  $('#selectPelaksana').append($('<option>', {value:'', text:'Tidak Ada Pelaksana'}, '</option>'));
+
+                }
+              
               }
             });
         });

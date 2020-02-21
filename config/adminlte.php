@@ -191,7 +191,7 @@ return [
         ['header' => 'LAPORAN'],
         [
             'text' => 'Laporan Harian',
-            'url'  => 'admin-panel/laporan-harian',
+            'url'  => 'admin-panel/laporan-harian/default/default',
             'icon' => 'fas fa-fw fa-book',
         ],
         [
