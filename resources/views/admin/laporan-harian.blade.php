@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-    <h1>Laporan Harian</h1>
+<h1 style="text-align:center">Laporan Harian</h1>
 
 @stop
 @section('css')

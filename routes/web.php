@@ -50,4 +50,6 @@ Route::group(['prefix'=> 'admin-panel', 'as'=> 'admin-panel' . '.', 'middleware'
     Route::get('/laporan-harian/{lokasi_id}/{dtarray}', 'HomeController@LaporanHarian')->name('laporan-harian');
     Route::get('/laporan-kumulatif', 'HomeController@LaporanKumulatif')->name('laporan-kumulatif');
     Route::get('/laporan-kumulatif/{kotakab_id}', 'HomeController@LaporanKumulatifDetail')->name('laporan-kumulatif-detail');
+    Route::get('/kumulatif-export', 'HomeController@KumulatifExport')->name('kumulatif-export');
+
 });

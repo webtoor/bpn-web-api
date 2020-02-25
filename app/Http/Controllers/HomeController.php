@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\KumulatifExport;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\ProjectLocation;
@@ -81,8 +84,6 @@ class HomeController extends Controller
         }
         return view('admin.laporan-harian', ['reportharian' => $reportharian, 'kotakab' => $kotakab, 'datestart' => $datestart, 'dateend' => $dateend]);
 
-     
-
     }
 
     public function LaporanKumulatif(){
@@ -95,5 +96,10 @@ class HomeController extends Controller
     public function LaporanKumulatifDetail($kotakab_id){
         $detail =  ProjectLocation::with(['user','kotakab', 'kecamatan', 'desa','reportharian'])->where('kotakab_id', $kotakab_id)->get();
         return view('admin.laporan-kum-detail', ['detail' => $detail]);
+    }
+
+    public function KumulatifExport(){
+        $nama_file = 'laporan_kumulatif_'.date('Y-m-d_H-i-s').'.xlsx';
+        return Excel::download(new KumulatifExport, $nama_file);
     }
 }

@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-    <h1>Laporan Kumulatif</h1>
+    <h1 style="text-align:center">Laporan Kumulatif</h1>
 
 @stop
 
@@ -14,7 +14,9 @@
 
 @section('content')
    <div class="row">
+
     <div class="col-12">
+    <a href="{{route('admin-panel.kumulatif-export')}}" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
       <div class="card">
        {{--  <div class="card-header">
           <h3 class="card-title">Responsive Hover Table</h3>
