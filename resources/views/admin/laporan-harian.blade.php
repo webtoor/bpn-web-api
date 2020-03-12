@@ -104,7 +104,7 @@
               <tr>
                 <th colspan="3" style="text-align:center">LOKASI</th>
                 <th colspan="3" style="text-align:center">TARGET</th>
-                <th colspan="2" style="vertical-align : middle; text-align:center">PELAKSANA</th>
+                <th colspan="3" style="vertical-align : middle; text-align:center">PELAKSANA</th>
                 <th colspan="10" style="text-align:center">REALISASI</th>
               </tr>
               <tr>
@@ -114,7 +114,8 @@
                 <th>PBT</th>
                 <th>SHAT</th>
                 <th>K4</th>
-                <th style="text-align:center">Nama</th>
+                <th style="text-align:center">Pelaksana</th>
+                <th style="text-align:center">Nama Lengkap</th>
                 <th>Tim</th>
                 <th>Terukur</th>
                 <th>Tergambar</th>
@@ -162,6 +163,7 @@
                   ?>
                 </td>
                 <td>{{$row->project_location->user->pelaksana}}</td>
+                <td>{{$row->project_location->user->fullname}}</td>
                 <td>{{$row->project_location->tim}}</td>
                 <td>{{$row->terukur}}
                   <?php 
@@ -212,6 +214,7 @@
                 <th>{{$total_target_pbt}}</th>
                 <th>{{$total_target_shat}}</th>
                 <th>{{$total_target_k4}}</th>
+                <th>-</th>
                 <th>-</th>
                 <th>-</th>
                 <th>{{$total_terukur}}</th>
@@ -271,7 +274,7 @@ console.log('Hi!');
                 console.log(results['data'])
                 if(results['data'].length > 0) {
                   $.each(results['data'], function(index, data) {
-                    $('#selectPelaksana').append($('<option>', { value:data['id'], text:data['user']['pelaksana'] + " - " + data['user']['email'] + " - Tim : " + data['tim']}, '</option>'));
+                    $('#selectPelaksana').append($('<option>', { value:data['id'], text:data['user']['pelaksana'] + " - " + data['user']['fullname'] + " - " + data['user']['email'] + " - Tim : " + data['tim']}, '</option>'));
                   });
                 }else if(results['data'].length < 1){
                   $("#selectPelaksana option").remove();

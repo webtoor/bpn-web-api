@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'PTSL 2020',
     'title_prefix' => '',
     'title_postfix' => '',
 

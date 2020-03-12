@@ -28,6 +28,7 @@
             <thead>
               <tr>
                 <th>Pelaksana</th>
+                <th>Nama Lengkap</th>
                 <th>Email</th>
                 <th>Kota/Kabupaten</th>
                 <th>Kecamatan</th>
@@ -44,6 +45,7 @@
               @foreach ($user as $row)
               <tr>
                 <td>{{$row->pelaksana}}</td>
+                <td>{{$row->fullname}}</td>
                 <td>{{$row->email}}</td>
                 <td>{{$row->project_location->kotakab->name}}</td>
                 <td>{{$row->project_location->kecamatan->name}}</td>
