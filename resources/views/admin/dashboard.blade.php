@@ -55,6 +55,7 @@
                 <td>{{$row->project_location->target_shat}}</td>
                 <td>{{$row->project_location->target_k4}}</td>
                 <td>
+                <button id="rejectVerifikasi" type="button" class="btn btn-block btn-danger btn-sm" data-id="{{$row->id}}" data-toggle="modal" data-target="#modal-tolak">Hapus</button>
                 <button id="verifikasi" type="button" class="btn btn-block btn-primary btn-sm" data-id="{{$row->id}}" data-toggle="modal" data-target="#modal-verify">Check</button>
 
                 </td>
@@ -89,7 +90,36 @@
 
         </div>
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">YA</button>
+        </div>
+        {!! Form::close() !!}
+
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+  <div class="modal fade" id="modal-tolak">
+    <div class="modal-dialog modal-sm">
+      {!! Form::open([ 'action' => ['HomeController@rejectVerifikasi'], 'method' => 'DELETE' ])!!}
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hapus Pelaksana</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah Anda yakin untuk menghapus Pelaksana ini?</p>
+          <input type="hidden" name="pelaksana_ids" id="pelaksana_ids" required>
+
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
           <button type="submit" class="btn btn-primary">YA</button>
         </div>
         {!! Form::close() !!}
@@ -111,6 +141,12 @@
 
             $('#pelaksana_id').val(pelaksana_id);
           });
+    $("button#rejectVerifikasi").click(function () {
+      var pelaksana_ids = $(this).data('id');
+      console.log(pelaksana_ids)
+
+      $('#pelaksana_ids').val(pelaksana_ids);
+    });
   });
 </script>
 @stop

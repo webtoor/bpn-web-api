@@ -176,7 +176,7 @@
                   <th>{{$total_tergambar}}</th>
                   <th>{{$total_k4}}</th>
                   <th>{{$total_pemberkasan}}</th>
-                  <th>{{$total_aplikasi_fisik_yuridis}}</th>
+                  <th>{{$total_aplikasi_fisik_pbt}}</th>
                   <th>{{$total_aplikasi_fisik_k4}}</th>
                   <th>{{$total_aplikasi_fisik_yuridis}}</th>
                 </tr>

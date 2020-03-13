@@ -5,8 +5,8 @@
 @section('content_header')
 
 <h1 style="text-align:center">Laporan Harian</h1>
-
 @stop
+
 @section('css')
 <link rel="stylesheet" href="/vendor/daterangepicker/daterangepicker.css">
 @stop

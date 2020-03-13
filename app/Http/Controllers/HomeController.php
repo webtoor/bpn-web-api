@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\KumulatifExport;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\ProjectLocation;
 use App\Models\KotaKabupaten;
@@ -62,7 +63,16 @@ class HomeController extends Controller
         User::where('id',$request->pelaksana_id)->update([
             'status' => '1'
         ]);
-        return back()->withSuccess(trans('Anda Berhasil menambahkan mitra')); 
+        return back()->withSuccess(trans('Anda Berhasil melakukan verifikasi')); 
+    }
+
+    public function rejectVerifikasi(Request $request){
+        User::where('id',$request->pelaksana_ids)->delete();
+        DB::statement("ALTER TABLE users AUTO_INCREMENT = 1");
+        DB::statement("ALTER TABLE user_role AUTO_INCREMENT = 1");
+        DB::statement("ALTER TABLE project_location AUTO_INCREMENT = 1");
+
+        return back()->withSuccess(trans('Anda Berhasil menghapus pelaksana')); 
     }
 
     public function LaporanHarian($lokasi_id, $dtarray){
