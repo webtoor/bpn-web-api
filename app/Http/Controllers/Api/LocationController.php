@@ -73,6 +73,22 @@ class LocationController extends Controller
         }
     }
 
+    public function EditLocation($lokasi_id){
+        $accessToken = Auth::user()->token();
+        try {
+            $results = ProjectLocation::with('kotakab', 'kecamatan', 'desa')->where(['id' => $lokasi_id, 'user_id' => $accessToken->user_id])->first();
+            return response()->json([
+                'status' => '1',
+                'data' => $results
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
     public function AddNewLocation(Request $request){
         $validatedData = $this->validate($request,[
             'kotakab' => 'required',
