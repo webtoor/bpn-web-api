@@ -49,7 +49,7 @@
                   <i class="far fa-calendar-alt"></i>
                 </span>
               </div>
-              <select name="location_id" id="selectPelaksana" class="form-control" required disabled>
+              <select name="pelaksana_id" id="selectPelaksana" class="form-control" required disabled>
                 <option selected value="">Pilih Pelaksana</option>
               </select>
             </div>
@@ -274,7 +274,7 @@ console.log('Hi!');
                 console.log(results['data'])
                 if(results['data'].length > 0) {
                   $.each(results['data'], function(index, data) {
-                    $('#selectPelaksana').append($('<option>', { value:data['id'], text:data['user']['pelaksana'] + " - " + data['user']['fullname'] + " - " + data['user']['email'] + " - Tim : " + data['tim']}, '</option>'));
+                    $('#selectPelaksana').append($('<option>', { value:data['user']['id'], text:data['user']['pelaksana'] + " - " + data['user']['fullname']}, '</option>'));
                   });
                 }else if(results['data'].length < 1){
                   $("#selectPelaksana option").remove();

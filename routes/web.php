@@ -48,7 +48,7 @@ Route::group(['prefix'=> 'admin-panel', 'as'=> 'admin-panel' . '.', 'middleware'
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::put('/verifikasi', 'HomeController@verifikasi')->name('verifikasi');
     Route::delete('/verifikasi', 'HomeController@rejectVerifikasi')->name('reject-verifikasi');
-    Route::get('/laporan-harian/{lokasi_id}/{dtarray}', 'HomeController@LaporanHarian')->name('laporan-harian');
+    Route::get('/laporan-harian/{kotakab_id}/{pelaksana_id}/{dtarray}', 'HomeController@LaporanHarian')->name('laporan-harian');
     Route::get('/laporan-kumulatif', 'HomeController@LaporanKumulatif')->name('laporan-kumulatif');
     Route::get('/laporan-kumulatif/{kotakab_id}', 'HomeController@LaporanKumulatifDetail')->name('laporan-kumulatif-detail');
     Route::get('/kumulatif-export', 'HomeController@KumulatifExport')->name('kumulatif-export');

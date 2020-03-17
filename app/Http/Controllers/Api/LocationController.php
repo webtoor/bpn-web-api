@@ -89,6 +89,43 @@ class LocationController extends Controller
         }
     }
 
+    public function EditPostLocation(Request $request, $lokasi_id){
+      /*   return response()->json([
+            'status' => '1',
+            'data' => $request->all()
+        ]); */
+        $validatedData = $this->validate($request,[
+            'kotakab' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
+            'target_pbt' => 'required|numeric',
+            'target_shat' => 'required|numeric',
+            'target_k4' => 'required|numeric',
+            'tim' => 'required|numeric',
+        ]);
+        $accessToken = Auth::user()->token();
+        try {
+            $results = ProjectLocation::where(['id' => $lokasi_id, 'user_id' => $accessToken->user_id])->update([
+                'kotakab_id' => $validatedData['kotakab'],
+                'kecamatan_id' => $validatedData['kecamatan'],
+                'desa_id' => $validatedData['desa'],
+                'target_pbt' => $validatedData['target_pbt'],
+                'target_shat' => $validatedData['target_shat'],
+                'target_k4' => $validatedData['target_k4'],
+                'tim' => $validatedData['tim']
+            ]);
+            return response()->json([
+                'status' => '1',
+                'message' => 'success'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
     public function AddNewLocation(Request $request){
         $validatedData = $this->validate($request,[
             'kotakab' => 'required',
